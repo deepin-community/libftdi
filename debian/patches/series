@@ -1,0 +1,3 @@
+01_pkgconfig_libusb.diff
+03_pkgconfig_private.diff
+04_async_mode.diff

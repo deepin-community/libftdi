@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --parallel --with autoreconf
+
+ifeq ($(DEB_BUILD_ARCH_OS),linux)
+  asyncmode = --with-async-mode
+else
+  asyncmode =
+endif
+
+override_dh_auto_configure:
+## Only enable async mode on Linux targets
+	dh_auto_configure -- --disable-libftdipp --disable-python-binding $(asyncmode)
+
+override_dh_strip-arch:
+	dh_strip -plibftdi1 --dbg-package=libftdi1-dbg
+	dh_strip --remaining-packages
